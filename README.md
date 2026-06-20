@@ -28,4 +28,9 @@
 
 ## Dev Notes
 
+### links:
 
+- [tanstack quickstart docs](https://tanstack.com/query/latest/docs/framework/react/quick-start)
+- [react hook form quickstart docs](https://react-hook-form.com/get-started)
+- [material ui install instructions](https://mui.com/material-ui/getting-started/installation/)
+- [react router - routing instructions](https://reactrouter.com/start/framework/routing)
