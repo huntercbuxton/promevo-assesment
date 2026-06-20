@@ -28,9 +28,17 @@
 
 ## Dev Notes
 
-### links:
+### links/reference:
+
+#### frontend
 
 - [tanstack quickstart docs](https://tanstack.com/query/latest/docs/framework/react/quick-start)
 - [react hook form quickstart docs](https://react-hook-form.com/get-started)
 - [material ui install instructions](https://mui.com/material-ui/getting-started/installation/)
 - [react router - routing instructions](https://reactrouter.com/start/framework/routing)
+
+#### backend 
+
+- [gmail api quickstart](https://developers.google.com/workspace/gmail/api/guides)
+- [gmail api auth docs](https://developers.google.com/workspace/guides/auth-overview)
+
