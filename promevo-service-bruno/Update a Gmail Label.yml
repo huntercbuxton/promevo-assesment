@@ -6,6 +6,19 @@ info:
 http:
   method: POST
   url: "{{host}}/update"
+  body:
+    type: json
+    data: |-
+      {
+        "id": "Label_3",
+        "name": "label_test_color",
+        "messageListVisibility": "show",
+        "labelListVisibility": "labelShow",
+        "color": {
+          "textColor": "#000000",
+          "backgroundColor": "#434343"
+        }
+      }
   auth: inherit
 
 settings:

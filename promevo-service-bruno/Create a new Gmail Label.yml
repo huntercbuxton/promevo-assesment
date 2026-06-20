@@ -6,6 +6,18 @@ info:
 http:
   method: POST
   url: "{{host}}/create"
+  body:
+    type: json
+    data: |-
+      { 
+        "name": "label_test_6",
+        "messageListVisibility": "show",
+        "labelListVisibility": "labelShow",
+        "color": {
+          "textColor": "#000000",
+          "backgroundColor": "#434343"
+        }
+      }
   auth: inherit
 
 settings:

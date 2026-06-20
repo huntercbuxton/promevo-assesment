@@ -27,7 +27,7 @@ public class GmailConfig {
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
     // Define scopes depending on what permissions your app needs
-    private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
+    private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_LABELS);
     private static final String CREDENTIALS_FILE_PATH = "/gmail_credentials.json";
 
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws Exception {
