@@ -4,10 +4,10 @@
 
 ### Source Code
 
-- ```./labels-ui``` contains the frontend React project
-- ```./labels-service``` contains the backend spring project
+- ```./labels-ui``` contains the frontend app React project
+- ```./labels-service``` contains the backend Spring project
 
-### Dev/Demo Resources
+### Demo/Testing Resources
 
 - ```./labels-service-bruno``` contains a bruno collection to manually demo/test the labels-service app
 
@@ -25,5 +25,7 @@
 2. cd into ```./labels-service``` then run ```mvn clean install``` and ```mvn spring-boot:run```
 3. app will be available at http://localhost:8080
 
+
+## Dev Notes
 
 
