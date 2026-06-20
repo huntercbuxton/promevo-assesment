@@ -41,4 +41,6 @@
 
 - [gmail api quickstart](https://developers.google.com/workspace/gmail/api/guides)
 - [gmail api auth docs](https://developers.google.com/workspace/guides/auth-overview)
-
+- [google api auth help](https://support.google.com/googleapi/answer/6158857?hl=en&ref_topic=7013279&sjid=7103131004221423699-NC)
+- [google api secrets json file format](https://developers.google.com/api-client-library/dotnet/guide/aaa_client_secrets)
+- [gmail api client lib dependencies](https://developers.google.com/workspace/gmail/api/downloads)
