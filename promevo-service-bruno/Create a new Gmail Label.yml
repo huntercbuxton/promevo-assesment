@@ -10,12 +10,12 @@ http:
     type: json
     data: |-
       { 
-        "name": "label_test_6",
+        "name": "label_test_16",
         "messageListVisibility": "show",
-        "labelListVisibility": "labelShow",
+        "labelListVisibility": "listShow",
         "color": {
           "textColor": "#000000",
-          "backgroundColor": "#434343"
+          "backgroundColor": "#ffffff"
         }
       }
   auth: inherit

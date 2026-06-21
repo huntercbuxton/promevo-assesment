@@ -10,14 +10,14 @@ http:
     type: json
     data: |-
       {
-        "id": "Label_6",
-        "name": "label_test_6_updated",
-        "messageListVisibility": "show",
-        "labelListVisibility": "labelShow",
         "color": {
-          "textColor": "#000000",
-          "backgroundColor": "#434343"
-        }
+          "backgroundColor": "#ffffff",
+          "textColor": "#000000"
+        },
+        "id": "Label_18",
+        "labelListVisibility": "labelHide",
+        "messageListVisibility": "hide",
+        "name": "label_test_18"
       }
   auth: inherit
 
