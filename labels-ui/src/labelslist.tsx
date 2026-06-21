@@ -33,30 +33,30 @@ function Example() {
   )
 }
 
+// function LabelsList() {
+//   const { isPending, error, data } = useQuery({
+//     queryKey: ['labelListData'],
+//     queryFn: () =>
+//       fetch('http://localhost:8080/list').then((res) =>
+//         res.json(),
+//       ),
+//   })
+
+//   if (isPending) return 'Loading...'
+
+//   if (error) return 'An error has occurred: ' + error.message
+
+//   return (
+//     <div>
+//       <h1>All Labels</h1>
+//       <ul>
+//         {data.map((l,i) => <li key={i}><pre>{JSON.stringify(l)}</pre></li>) }
+//       </ul>
+//     </div>
+//   )
+// }
+
 function LabelsList() {
-  const { isPending, error, data } = useQuery({
-    queryKey: ['labelListData'],
-    queryFn: () =>
-      fetch('http://localhost:8080/list').then((res) =>
-        res.json(),
-      ),
-  })
-
-  if (isPending) return 'Loading...'
-
-  if (error) return 'An error has occurred: ' + error.message
-
-  return (
-    <div>
-      <h1>All Labels</h1>
-      <ul>
-        {data.map((l,i) => <li key={i}><pre>{JSON.stringify(l)}</pre></li>) }
-      </ul>
-    </div>
-  )
-}
-
-function LabelsListV2() {
   const { isPending, error, data } = useQuery({
     queryKey: ['labelListData'],
     queryFn: () =>
@@ -79,10 +79,8 @@ function LabelsListV2() {
 
 export default function LabelsListPage() {
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* <Example /> */}
-      {/* <LabelsList /> */}
-      <LabelsListV2 />
+    <QueryClientProvider client={queryClient}> 
+      <LabelsList />
     </QueryClientProvider>
   )
 }

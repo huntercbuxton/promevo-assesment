@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid,  type GridColDef, type GridRenderCellParams, type GridRowParams } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { mock_labels_data_list, type LabelData } from './labeldata';
-
+import { useNavigate } from 'react-router-dom';
+ 
 
 const columns: GridColDef<LabelData>[] = [
   {
@@ -79,6 +80,14 @@ export default function LabelsDataGrid({ rows_data }: LabelsDataGridProps) {
   console.log(`rows data: ${JSON.stringify(rows_data)}`)
   console.log(`columns data: ${JSON.stringify(columns)}`)
 
+  const navigate = useNavigate();
+
+  // 2. Handle row click for navigation
+  const handleRowClick = (params: GridRowParams) => {
+    // Navigate to a specific path using the row's ID
+    navigate(`/labels/${params.row.id}`);
+  };
+
   return (
     <Box sx={{ minHeight: 400, width: '100%' }}>
       <DataGrid
@@ -94,7 +103,8 @@ export default function LabelsDataGrid({ rows_data }: LabelsDataGridProps) {
         }}
         pageSizeOptions={[5, 10, 20]}
         // checkboxSelection
-        disableRowSelectionOnClick
+        onRowClick={handleRowClick}
+        disableRowSelectionOnClick 
       />
     </Box>
   );

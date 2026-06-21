@@ -17,18 +17,10 @@ interface LabelFormData {
 }
 
 // Simulated API calls
-const fetchLabel = async (id: string): Promise<LabelFormData> => {
+export const fetchLabel = async (id: string): Promise<LabelData> => {
   const res = await fetch(`http://localhost:8080/${id}`);
   if (!res.ok) throw new Error('Failed to load label data');
-  const label_form_data: LabelFormData = await res.json();
-  if (label_form_data.color?.textColor) {
-    label_form_data.textColor = label_form_data.color?.textColor
-  }
-  if (label_form_data.color?.backgroundColor) {
-    label_form_data.backgroundColor = label_form_data.color?.backgroundColor
-  }
-  console.log(`label_form_data from fetchLabel: ${JSON.stringify(label_form_data)}`)
-  return label_form_data
+  return res.json();
 };
 
 const updateLabel = async ( data: LabelFormData): Promise<void> => {
@@ -36,8 +28,7 @@ const updateLabel = async ( data: LabelFormData): Promise<void> => {
     id: data.id,
     name: data.name,
     messageListVisibility: data.messageListVisibility,
-    labelListVisibility: data.labelListVisibility,
-    // color: null
+    labelListVisibility: data.labelListVisibility, 
   }
   if (data.textColor && data.backgroundColor) {
       req_body['color'] = {
@@ -45,6 +36,7 @@ const updateLabel = async ( data: LabelFormData): Promise<void> => {
         backgroundColor: data.backgroundColor
       }
   }
+
   await fetch('http://localhost:8080/update', {
     method: 'POST',
     headers: {
@@ -59,19 +51,21 @@ export function UpdateLabelForm({ labelId }: { labelId: string }) {
 
   // 1. Fetch data from server
   const { data, isLoading } = useQuery({
-    queryKey: ['label', labelId],
-    queryFn: () => fetchLabel(labelId)
-    // queryFn: async () => {
-    //   const label_form_data = await fetchLabel(labelId); 
-    //   if (label_form_data.color?.textColor) {
-    //     label_form_data['textColor'] = label_form_data.color?.textColor
-    //   }
-    //   if (label_form_data.color?.backgroundColor) {
-    //     label_form_data['backgroundColor'] = label_form_data.color?.backgroundColor
-    //   }
-    //   console.log(`label_form_data from fetch query : ${JSON.stringify(label_form_data)}`)
-    //   return label_form_data
-    // }
+    queryKey: ['label', labelId], 
+    queryFn: async () => {
+        const label_data = await fetchLabel(labelId); 
+        const label_form_data = { 
+            id: label_data.id,
+            name: label_data.name,
+            messageListVisibility: label_data.messageListVisibility,
+            labelListVisibility: label_data.labelListVisibility,
+            color: label_data.color,
+            textColor: (!label_data.color || label_data.color === undefined) ?  '' : label_data.color?.textColor,
+            backgroundColor: (!label_data.color || label_data.color === undefined) ?  '' : label_data.color?.backgroundColor 
+        } 
+        console.log(`label_form_data from fetch query : ${JSON.stringify(label_form_data)}`)
+        return label_form_data
+    }
   });
 
    const form_data_defaults = { 
@@ -80,12 +74,15 @@ export function UpdateLabelForm({ labelId }: { labelId: string }) {
         labelListVisibility: '', 
         messageListVisibility: '',
         textColor: '',
-        backgroundColor: ''
-      }
+        backgroundColor: '' 
+    }
+    
   // 2. Initialize React Hook Form with reactive "values"
-  const { register, handleSubmit, formState: { errors } } = useForm<LabelFormData>({
-    // 'values' replaces 'defaultValues' for data streams like useQuery 
-    values: data || form_data_defaults,
+  const { register, 
+        handleSubmit, 
+        formState: { errors } } = useForm<LabelFormData>({
+        // 'values' replaces 'defaultValues' for data streams like useQuery 
+        values: data || form_data_defaults,
   });
 
   // 3. Handle data persistence using useMutation
@@ -125,8 +122,12 @@ export function UpdateLabelForm({ labelId }: { labelId: string }) {
         <label>Background Color</label>
         <input {...register('backgroundColor')} /> 
       </div>
-      <button type="submit" disabled={isPending}>
-        {isPending ? 'Saving...' : 'Save Changes'}
+       
+      {/* TODO: disable submit button if there are any errors in the form input */}
+      <button 
+        type="submit"  
+        disabled={isPending}>
+            {isPending ? 'Saving...' : 'Save Changes'}
       </button>
 
     </form>
@@ -136,10 +137,11 @@ export function UpdateLabelForm({ labelId }: { labelId: string }) {
 export default function UpdatePage() {
 
   const labelId: string = 'Label_6';
+
   return (
     <>
        <QueryClientProvider client={queryClient}>
-          <h1>Update Label Page</h1>
+          <h1>Label Detail Page</h1>
           <UpdateLabelForm labelId={labelId} />
        </QueryClientProvider> 
     </>

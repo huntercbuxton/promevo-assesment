@@ -9,12 +9,15 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import ReactDOM from "react-dom/client"; 
 import LabelsListPage from './labelslist';
-import UpdatePage from './updatelabel'
+// import UpdatePage from './updatelabel'
+import UpdatePage from './label';
+// import LabelDetailPage from './label'
+import LabelDetailPage from './labeldetail.tsx';
 
 // temp
 import { MockLabelsDataGrid } from './labelsgrid.tsx' 
 // const ListLabels = () => <h1>List Labels Page Placeholder</h1>
-const ViewLabel = () => <h1>View Label Page Placeholder</h1>
+// const ViewLabel = () => <h1>View Label Page Placeholder</h1>
 const LandingPage = () => <h1>Landing Page Placeholder</h1>
 // const UpdatePage = () => <h1>Update Page Placeholder</h1>
 const CreatePage = () => <h1>Create Page Placeholder</h1>
@@ -34,7 +37,8 @@ const router = createBrowserRouter([
       //https://reactrouter.com/start/data/routing#dynamic-segments
       {
         path: "labels/:id",
-        Component: ViewLabel
+        // Component: ViewLabel
+        Component: LabelDetailPage
       },
       {
         path: "create",
