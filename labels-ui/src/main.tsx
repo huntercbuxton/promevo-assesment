@@ -8,10 +8,11 @@ import '@fontsource/roboto/700.css';
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import ReactDOM from "react-dom/client"; 
+import LabelsList from './labelslist';
 
-const ListLabels = function() {
-  return <h1>List Labels Page</h1>
-}
+// const ListLabels = function() {
+//   return <h1>List Labels Page</h1>
+// }
 const ViewLabel = function() {
   return <h1>View Label Page</h1>
 }
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       { index: true, Component: LandingPage },
       {
         path: "list",
-        Component: ListLabels
+        Component: LabelsList
       },
       //https://reactrouter.com/start/data/routing#dynamic-segments
       {
