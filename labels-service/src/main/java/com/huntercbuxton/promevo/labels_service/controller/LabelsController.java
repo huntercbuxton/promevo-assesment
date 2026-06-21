@@ -24,12 +24,11 @@ import com.huntercbuxton.promevo.labels_service.GmailConfig;
 import com.huntercbuxton.promevo.labels_service.exceptions.AppError;
 import com.huntercbuxton.promevo.labels_service.model.CreateLabelRequest;
 import com.huntercbuxton.promevo.labels_service.model.UpdateLabelRequest;
+ 
 
-// TODO: add exception mapping for 400, 404, and 500 error cases
 @RestController
 @Slf4j
-// TODO: add cors config to limit allowed origins
-@CrossOrigin
+@CrossOrigin(originPatterns = "http://localhost:*")
 public class LabelsController {
 
 	private final GmailConfig gmailConfig;
