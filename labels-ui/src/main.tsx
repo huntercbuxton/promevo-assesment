@@ -9,7 +9,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import ReactDOM from "react-dom/client"; 
 import LabelsListPage from './labelslist';
-import UpdateLabel from './updatelabel'
+import UpdatePage from './updatelabel'
 
 // temp
 import { MockLabelsDataGrid } from './labelsgrid.tsx' 
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "update",
-        Component: UpdateLabel
+        Component: UpdatePage
       },
       {
         path: "delete",
