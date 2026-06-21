@@ -36,10 +36,12 @@ const router = createBrowserRouter([
       {
         path: "labels/:id",
         Component: LabelDetailPage
+        // TODO: add 404 page for invalid label id's
       },
       {
         path: "update/:id",
         Component: UpdatePage
+        // TODO: add 404 page for invalid label id's
       },
       {
         path: "create",

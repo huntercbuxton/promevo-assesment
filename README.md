@@ -46,3 +46,8 @@
 - [google api secrets json file format](https://developers.google.com/api-client-library/dotnet/guide/aaa_client_secrets)
 - [gmail api client lib dependencies](https://developers.google.com/workspace/gmail/api/downloads)
 - ['manage labels' gmail api docs](https://developers.google.com/workspace/gmail/api/guides/labels)
+
+#### misc 
+
+- [check cloud credit usage](https://console.cloud.google.com/welcome/new?project=promevo-coding-assesment)
+
