@@ -9,6 +9,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import ReactDOM from "react-dom/client"; 
 import LabelsList from './labelslist';
+import UpdateLabel from './updatelabel.tsx'
 
 // const ListLabels = function() {
 //   return <h1>List Labels Page</h1>
@@ -17,7 +18,7 @@ const ViewLabel = function() {
   return <h1>View Label Page</h1>
 }
 const LandingPage = () => <h1>Landing Page</h1>
-const UpdatePage = () => <h1>Update Page</h1>
+// const UpdatePage = () => <h1>Update Page</h1>
 const CreatePage = () => <h1>Create Page</h1>
 const DeletePage = () => <h1>Delete Page</h1>
 
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: "update",
-        Component: UpdatePage
+        Component: UpdateLabel
       },
       {
         path: "delete",
