@@ -6,7 +6,9 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.ListLabelsResponse;
 import com.google.api.services.gmail.model.Label;  
 import jakarta.validation.Valid; 
-import lombok.extern.slf4j.Slf4j; 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,8 @@ import com.huntercbuxton.promevo.labels_service.model.UpdateLabelRequest;
 // TODO: add exception mapping for 400, 404, and 500 error cases
 @RestController
 @Slf4j
+// TODO: add cors config to limit allowed origins
+@CrossOrigin
 public class LabelsController {
 
 	private final GmailConfig gmailConfig;
