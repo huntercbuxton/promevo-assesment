@@ -8,19 +8,17 @@ import '@fontsource/roboto/700.css';
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import ReactDOM from "react-dom/client"; 
-import LabelsList from './labelslist';
-import UpdateLabel from './updatelabel.tsx'
+import LabelsListPage from './labelslist';
+import UpdateLabel from './updatelabel'
 
-// const ListLabels = function() {
-//   return <h1>List Labels Page</h1>
-// }
-const ViewLabel = function() {
-  return <h1>View Label Page</h1>
-}
-const LandingPage = () => <h1>Landing Page</h1>
-// const UpdatePage = () => <h1>Update Page</h1>
-const CreatePage = () => <h1>Create Page</h1>
-const DeletePage = () => <h1>Delete Page</h1>
+// temp
+import { MockLabelsDataGrid } from './labelsgrid.tsx' 
+// const ListLabels = () => <h1>List Labels Page Placeholder</h1>
+const ViewLabel = () => <h1>View Label Page Placeholder</h1>
+const LandingPage = () => <h1>Landing Page Placeholder</h1>
+// const UpdatePage = () => <h1>Update Page Placeholder</h1>
+const CreatePage = () => <h1>Create Page Placeholder</h1>
+const DeletePage = () => <h1>Delete Page Placeholder</h1>
 
 const router = createBrowserRouter([
   {
@@ -30,7 +28,8 @@ const router = createBrowserRouter([
       { index: true, Component: LandingPage },
       {
         path: "list",
-        Component: LabelsList
+        // Component: LabelsList
+        Component: LabelsListPage
       },
       //https://reactrouter.com/start/data/routing#dynamic-segments
       {
@@ -48,6 +47,11 @@ const router = createBrowserRouter([
       {
         path: "delete",
         Component: DeletePage
+      }
+      ,
+      {
+        path: "datagrid",
+        Component: MockLabelsDataGrid
       }
     ]
   },
