@@ -1,11 +1,6 @@
-import { useState } from 'react'
-import { Outlet } from "react-router";
-// import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
-import './App.css'
-import { NavLink } from "react-router";
-
+// import { useState } from 'react';
+import { Outlet, NavLink } from "react-router"; 
+import './App.css' 
 export function MyAppNav() {
   return (
     <nav>
@@ -19,17 +14,16 @@ export function MyAppNav() {
   );
 }
 
-function App() {
-  // const [count, setCount] = useState(0)
-
+function App() { 
+  
   return (
     <>
-    <header>
-      <MyAppNav/>
-    </header>
-    <main>
-       <Outlet />
-    </main>
+      <header>
+        <MyAppNav/>
+      </header>
+      <main>
+        <Outlet />
+      </main>
     </>
   )
  
