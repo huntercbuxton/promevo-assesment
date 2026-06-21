@@ -8,6 +8,9 @@ import com.google.api.services.gmail.model.ListLabelsResponse;
 import com.google.api.services.gmail.model.Label;  
 import jakarta.validation.Valid; 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,46 +20,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody; 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-
-import com.huntercbuxton.promevo.labels_service.GmailConfig;
+import org.springframework.web.bind.annotation.RestController;  
 import com.huntercbuxton.promevo.labels_service.exceptions.AppError;
 import com.huntercbuxton.promevo.labels_service.model.CreateLabelRequest;
 import com.huntercbuxton.promevo.labels_service.model.UpdateLabelRequest;
  
+import org.springframework.web.server.ResponseStatusException;
+
 
 @RestController
 @Slf4j
 @CrossOrigin(originPatterns = "http://localhost:*")
-public class LabelsController {
+public class LabelsController { 
+	 
+	private final Gmail gmailService;
 
-	private final GmailConfig gmailConfig;
-
-	public LabelsController(GmailConfig gmailConfig) {
-		this.gmailConfig = gmailConfig;
-	} 
+	public LabelsController(Gmail gmailAPIService) {
+		this.gmailService = gmailAPIService;
+	}
+	 
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<String> getLabel(@PathVariable("id") String id) {
+	public ResponseEntity<Label> getLabel(@PathVariable("id") String id) {
 		log.info("called get /{id} endpoint handler");
 
-		try {
-			Gmail service = gmailConfig.getGmailService();
-			Label serviceResponse = service.users().labels().get("me", id).execute();
- 
-			if (serviceResponse == null) throw new AppError(); 
-			return new ResponseEntity<>(serviceResponse.toString(), HttpStatus.OK);
+		try { 
+			Label serviceResponse = gmailService.users().labels().get("me", id).execute(); 
+			return new ResponseEntity<>(serviceResponse , HttpStatus.OK); 
 			
 		} catch (GoogleJsonResponseException ex) {
-			if (ex.getDetails().getCode() == 404) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND)
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("Label not found"); 
-			}
-			throw AppError.gmailAPIErr(ex); 
-		} catch (ResponseStatusException ex) {
-			throw ex;
+			if (ex.getDetails().getCode() == 404) 
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Label not found" );
+			throw AppError.gmailAPIErr(ex);  
 		} catch (Exception ex) {
 			log.error("caught unhandled error case", ex);  
 			throw AppError.unhandledErr(ex); 
@@ -68,17 +63,12 @@ public class LabelsController {
 	public ResponseEntity<String> deleteLabel(@PathVariable("id") String id) {
 		log.info("called delete /{id} endpoint handler");
 
-		try {
-			Gmail service = gmailConfig.getGmailService();
-			service.users().labels().delete("me", id).execute();
-			
-		} catch (GoogleJsonResponseException e) {
-			if (e.getDetails().getCode() == 404) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND)
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("Label not found"); 
-			} 
-			throw AppError.gmailAPIErr(e);
+		try { 
+			gmailService.users().labels().delete("me", id).execute(); 
+		} catch (GoogleJsonResponseException ex) {
+			if (ex.getDetails().getCode() == 404) 
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Label not found" );
+			throw AppError.gmailAPIErr(ex);  
 		} catch (Exception ex) {
 			log.error("caught unhandled error case", ex); 
 		    throw AppError.unhandledErr(ex); 
@@ -90,17 +80,13 @@ public class LabelsController {
 	}
 
 	@GetMapping("/list")
-	public String listLabels() {
+	public ResponseEntity<List<Label>> listLabels() {
 		log.info("called get /list endpoint handler");
 
-		try {
-			Gmail service = gmailConfig.getGmailService();
-			ListLabelsResponse response = service.users().labels().list("me").execute();
-			
-			if (response.getLabels() == null || response.getLabels().isEmpty()) {
-				return "No messages found.";
-			}
-			return response.getLabels().toString();
+		try { 
+			ListLabelsResponse response = gmailService.users().labels().list("me").execute(); 
+			if (response.getLabels() == null )  throw new AppError(); 
+			return new ResponseEntity<>(response.getLabels(), HttpStatus.OK);   
 		}  catch (GoogleJsonResponseException ex) { 
 			throw new ResponseStatusException(500, ex.getDetails().getMessage(), ex);
 		} catch (Exception ex) { 
@@ -111,7 +97,7 @@ public class LabelsController {
 	}
 
 	@PostMapping("/create")
-	public String createLabel(@RequestBody CreateLabelRequest createRequest) {
+	public ResponseEntity<Label> createLabel(@RequestBody CreateLabelRequest createRequest) {
 		log.info("called post /create endpoint handler with request body as " + createRequest.toString());
 		 
 		Label content = new Label()
@@ -121,20 +107,20 @@ public class LabelsController {
 				.setColor(createRequest.getColor());
 		  
 		// TODO: remove this extra logging before merging to develop
-		ObjectMapper mapper = new ObjectMapper(); 
-		String jsonString = null;
-		try {
-			jsonString = mapper.writeValueAsString(content);
-		} catch (JsonProcessingException e) { 
-			e.printStackTrace();
-		}
-        log.debug("gmail api create label request {} ", jsonString); 
+//		ObjectMapper mapper = new ObjectMapper(); 
+//		String jsonString = null;
+//		try {
+//			jsonString = mapper.writeValueAsString(content);
+//		} catch (JsonProcessingException e) { 
+//			e.printStackTrace();
+//		}
+//        log.debug("gmail api create label request {} ", jsonString); 
 
-		try {
-			Gmail service = gmailConfig.getGmailService();
-			Label response = service.users().labels().create("me", content).execute();
-			if (response == null) throw new AppError(); 
-			return response.toString();
+		try { 
+			Label response = gmailService.users().labels().create("me", content).execute(); 
+			return new ResponseEntity<Label>(response, HttpStatus.OK);
+		} catch (GoogleJsonResponseException ex) { 
+			throw AppError.gmailAPIErr(ex);  
 		} catch (Exception ex) {
 			log.error("caught unhandled error case", ex); 
 		    throw AppError.unhandledErr(ex); 
@@ -143,7 +129,7 @@ public class LabelsController {
 	}
 
 	@PostMapping("/update")
-	public String updateLabel(@Valid @RequestBody UpdateLabelRequest updates) {
+	public ResponseEntity<Label> updateLabel(@Valid @RequestBody UpdateLabelRequest updates) {
 		log.info("called post /update endpoint handler");
 		
 		Label content = new Label()
@@ -153,12 +139,12 @@ public class LabelsController {
 				.setMessageListVisibility(updates.getMessageListVisibility())
 				.setColor(updates.getColor()); 
 		
-		try {
-			Gmail service = gmailConfig.getGmailService();
-			Label response = service.users().labels().update("me", updates.getId(), content).execute();
-
-			if (response == null) throw new AppError();  
-			return response.toString();
+		try { 
+			Label response = gmailService.users().labels().update("me", updates.getId(), content).execute();
+			 
+			return new ResponseEntity<Label>(response, HttpStatus.OK); 
+		} catch (GoogleJsonResponseException ex) { 
+			throw AppError.gmailAPIErr(ex);  
 		} catch (Exception ex) {
 			log.error("caught unhandled error case", ex); 
 			throw AppError.unhandledErr(ex); 

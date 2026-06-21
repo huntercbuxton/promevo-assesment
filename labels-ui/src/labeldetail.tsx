@@ -49,6 +49,7 @@ function LabelDetail() {
 
     if (isLoading) return <div>Loading label data...</div>;
 
+    // TODO: this does not handle 404's from backend, it shows a blank label and empty colors obj
     if (error) return <div>{'An error has occurred: ' + error.message}</div>
 
     return (

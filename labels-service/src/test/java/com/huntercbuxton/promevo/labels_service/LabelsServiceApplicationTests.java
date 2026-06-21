@@ -8,6 +8,7 @@ class LabelsServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }

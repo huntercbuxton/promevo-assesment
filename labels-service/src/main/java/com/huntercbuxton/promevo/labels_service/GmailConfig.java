@@ -11,6 +11,8 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.FileNotFoundException;
@@ -22,7 +24,7 @@ import java.util.List;
 @Configuration
 public class GmailConfig {
 
-    private static final String APPLICATION_NAME = "Spring Boot Gmail API";
+    private static final String APPLICATION_NAME = "labels-service";
     private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
@@ -50,8 +52,10 @@ public class GmailConfig {
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
-
-    public Gmail getGmailService() throws Exception {
+    
+    
+    @Bean
+    Gmail gmailAPIService() throws Exception {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Credential credential = getCredentials(HTTP_TRANSPORT);
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
