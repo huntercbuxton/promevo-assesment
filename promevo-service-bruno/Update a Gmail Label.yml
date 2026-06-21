@@ -10,8 +10,8 @@ http:
     type: json
     data: |-
       {
-        "id": "Label_3",
-        "name": "label_test_color",
+        "id": "Label_6",
+        "name": "label_test_6_updated",
         "messageListVisibility": "show",
         "labelListVisibility": "labelShow",
         "color": {

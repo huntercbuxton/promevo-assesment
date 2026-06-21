@@ -4,7 +4,7 @@ import {
     QueryClientProvider,
     useQuery,
     useQueryClient,
-     useMutation
+    useMutation
 } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form';
 import { DataGrid, type GridColDef, type GridRenderCellParams, type GridRowParams } from '@mui/x-data-grid';
@@ -84,27 +84,6 @@ export function LabelSelectionGrid({ onRowClick, rows_data }: { onRowClick: (id:
     );
 }
 
-// function LabelSelector() {
-
-//   const { isLoading, error, data } = useQuery({
-//     queryKey: ['deletableList'],
-//     queryFn: () =>
-//       fetch('http://localhost:8080/list').then((res) =>
-//         res.json(),
-//       ),
-//   })
-
-//   if (isLoading) return 'Loading...'
-
-//   if (error) return 'An error has occurred: ' + error.message
-
-//   return (
-//     <div>
-//       <h1>Delete Labels</h1>
-//       <LabelSelectionGrid rows_data={data} />
-//     </div>
-//   )
-// }
 
 interface DeleteFormData {
     id: string;
@@ -117,9 +96,9 @@ const deleteLabel = async (labelId: string): Promise<void> => {
 };
 
 export function DeleteLabelForm() { //{ labelId }: { labelId: string }
-    
+
     const queryClient = useQueryClient();
-    
+
     // TODO: filter out labels that have type 'system'
     const { isLoading, error, data } = useQuery({
         queryKey: ['deletableList'],
@@ -140,7 +119,7 @@ export function DeleteLabelForm() { //{ labelId }: { labelId: string }
     }
 
     // 2. Initialize React Hook Form with reactive "values"
-    const {  
+    const {
         handleSubmit,
         formState: { errors } } = useForm<DeleteFormData>({
             // 'values' replaces 'defaultValues' for data streams like useQuery 
@@ -156,7 +135,7 @@ export function DeleteLabelForm() { //{ labelId }: { labelId: string }
         },
     });
 
-    if (isLoading) return 'Loading...' 
+    if (isLoading) return 'Loading...'
     if (error) return 'An error has occurred: ' + error.message
 
     return (
@@ -165,15 +144,15 @@ export function DeleteLabelForm() { //{ labelId }: { labelId: string }
                 <h1>Delete Labels</h1>
                 <LabelSelectionGrid onRowClick={onRowClick} rows_data={data} />
             </div>
-            <form onSubmit={handleSubmit((values) => mutate(values))}> 
+            <form onSubmit={handleSubmit((values) => mutate(values))}>
                 {/* TODO: disable submit button if there are any errors in the form input */}
                 <button
                     type="submit"
                     disabled={isPending || !selectedId}>
                     {isPending ? 'Deleting...' : 'Delete Selected'}
-                </button> 
+                </button>
             </form>
-        </> 
+        </>
     );
 }
 
