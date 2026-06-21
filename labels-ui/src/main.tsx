@@ -14,12 +14,13 @@ import LabelsListPage from './labelslist';
 import UpdatePage from './label'; 
 import LabelDetailPage from './labeldetail.tsx';
 import CreatePage from './create'
+import DeletePage from './delete'
 
 // temp
 import { MockLabelsDataGrid } from './labelsgrid.tsx'  
 const LandingPage = () => <h1>Landing Page Placeholder</h1> 
 // const CreatePage = () => <h1>Create Page Placeholder</h1>
-const DeletePage = () => <h1>Delete Page Placeholder</h1>
+// const DeletePage = () => <h1>Delete Page Placeholder</h1>
 
 const router = createBrowserRouter([
   {
