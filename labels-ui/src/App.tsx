@@ -6,9 +6,9 @@ export function MyAppNav() {
     <nav>
       <NavLink to="/" end>Home</NavLink>
       <NavLink to="/list">List</NavLink>
-      <NavLink to="/labels/:id" end>View</NavLink>
+      <NavLink to="/labels/Label_6" end>View</NavLink>
+      <NavLink to="/update/Label_6">Update</NavLink>
       <NavLink to="/create">Create</NavLink>
-      <NavLink to="/update">Update</NavLink>
       <NavLink to="/delete">Delete</NavLink> 
     </nav>
   );
