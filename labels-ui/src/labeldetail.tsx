@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import LabelDataTable from './label_data_table';
 import UpdateLabelForm from './label_data_editor';
+import Stack from '@mui/material/Stack';
+
 import './labeldetail.css'
 
 import { delete_label_command } from './api_util.ts'
@@ -90,16 +92,17 @@ export function LabelDetailView({ id, name, color, type, messageListVisibility, 
 
     return (
         <>
-            <header id='label-detail-header'>
-                <Button onClick={navigateToListPage}>Back</Button>
-                <Button onClick={handleEditBtnClick} disabled={showEditor}>Edit</Button>
-                {type === 'user' && <DeleteLabelBtn id={id} onDeleteErr={handleDeleteBtnClick}/>  }
-            </header>
-            <Container>
-                {color ? <LabelBtn id={id} name={name} color={color} />
-                    : <LabelBtn id={id} name={name} />}
-            </Container>
-            <br/>
+            <div style={{padding: 25}}>
+                <Stack sx={{justifyContent: "space-between"}} direction={{ xs: 'column', sm: 'row' }}>
+                    {color ? <LabelBtn id={id} name={name} color={color} />
+                        : <LabelBtn id={id} name={name} />}
+                        <Stack direction={{ xs: 'column', sm: 'row' }}>
+                            <Button onClick={handleEditBtnClick} disabled={showEditor}>Edit</Button>
+                        {type === 'user' && <DeleteLabelBtn id={id} onDeleteErr={handleDeleteBtnClick}/>  }
+                    </Stack>
+                </Stack>
+            </div>
+           
            <Container>
                 {showEditor ? <UpdateLabelForm 
                         labelData={{ id, name, color, type, messageListVisibility, labelListVisibility }}

@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import { type LabelColorData } from './labeldata';
 import './template.css'
-
+import Stack from '@mui/material/Stack';
  
 interface LabelBtnProps {
     id: string;
@@ -28,3 +28,7 @@ export default function LabelBtn({ id, name, onClick=(id)=>id, color, disabled =
 
 }
 
+export const LabelFormItem = ({ children }) => <Stack direction={{ xs: 'column', sm: 'row' }}
+    spacing={{ xs: 1, sm: 2, md: 4 }} >{children}</Stack>
+
+export const FormItemTitle = ({ children }) => <label style={{ width: '30%', minWidth: 300, padding: 5, color: 'inherit', textAlign: 'left' }} >{children}</label>

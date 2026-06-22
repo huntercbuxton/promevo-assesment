@@ -1,18 +1,14 @@
 import { useState } from 'react'
-import {
-    useQuery, useMutation, useQueryClient, QueryClient,
-    QueryClientProvider
+import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider
 } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { type LabelData, type LabelColorData } from './labeldata';
-import { useParams } from "react-router";
+import { type LabelData, type LabelColorData } from './labeldata'; 
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Container from '@mui/material/Container';
-import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box'; 
+import Container from '@mui/material/Container'; 
+import { FormItemTitle, LabelFormItem } from './template';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 // Types for form values
 interface LabelFormData {
@@ -60,10 +56,6 @@ const updateLabel = async (data: LabelFormData): Promise<void> => {
 
 };
 
-const FormItem = ({ children }) => <Stack direction={{ xs: 'column', sm: 'row' }}
-    spacing={{ xs: 1, sm: 2, md: 4 }} >{children}</Stack>
-
-const FormLabel = ({ children }) => <label style={{ width: '30%', minWidth: 300, padding: 5, color: 'inherit', textAlign: 'left' }} >{children}</label>
 
 export default function UpdateLabelForm({ labelData, onSave }) {
     const queryClient = useQueryClient();
@@ -114,26 +106,29 @@ export default function UpdateLabelForm({ labelData, onSave }) {
         })}>
             <Box sx={{ width: '100%' }}>
                 <Stack spacing={2} >
-                    <FormItem>
-                        <FormLabel>Name</FormLabel>
+                    <LabelFormItem>
+                        <FormItemTitle>Name</FormItemTitle>
                         <input {...register('name', { required: true })} />
-                        {errors.name && <span>This field is required</span>}</FormItem>
-                    <FormItem>
-                        <FormLabel>Message List Visibility</FormLabel>
+                        {errors.name && <span>This field is required</span>}
+                    </LabelFormItem>
+                    <LabelFormItem>
+                        <FormItemTitle>Message List Visibility</FormItemTitle>
                         <input {...register('messageListVisibility', { required: true })} />
-                        {errors.messageListVisibility && <span>This field is required</span>}</FormItem>
-                    <FormItem>
-                        <FormLabel>Label List Visibility</FormLabel>
+                        {errors.messageListVisibility && <span>This field is required</span>}
+                    </LabelFormItem>
+                    <LabelFormItem>
+                        <FormItemTitle>Label List Visibility</FormItemTitle>
                         <input {...register('labelListVisibility', { required: true })} />
-                        {errors.labelListVisibility && <span>This field is required</span>}</FormItem>
-                    <FormItem>
-                        <FormLabel>Text Color</FormLabel>
+                        {errors.labelListVisibility && <span>This field is required</span>}
+                    </LabelFormItem>
+                    <LabelFormItem>
+                        <FormItemTitle>Text Color</FormItemTitle>
                         <input {...register('textColor')} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Background Color</FormLabel>
+                    </LabelFormItem>
+                    <LabelFormItem>
+                        <FormItemTitle>Background Color</FormItemTitle>
                         <input {...register('backgroundColor')} />
-                    </FormItem>
+                    </LabelFormItem>
                 </Stack>
             </Box>
 
