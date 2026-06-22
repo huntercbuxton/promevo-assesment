@@ -10,9 +10,9 @@ http:
     type: json
     data: |-
       { 
-        "name": "label_test_16",
+        "name": "label_20",
         "messageListVisibility": "show",
-        "labelListVisibility": "listShow",
+        "labelListVisibility": "labelShow",
         "color": {
           "textColor": "#000000",
           "backgroundColor": "#ffffff"

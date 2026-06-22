@@ -75,8 +75,4 @@ export default function LabelsDataGrid({ rows_data }: LabelsDataGridProps ) {
     </Box>
   );
 }
-
-
-export function MockLabelsDataGrid() {
-  return <LabelsDataGrid rows_data={mock_labels_data_list} />
-};
+ 

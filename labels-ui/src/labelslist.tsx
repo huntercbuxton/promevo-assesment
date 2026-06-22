@@ -23,7 +23,7 @@ function LabelsList() {
 
   return (
     <div>
-      <h1>All Labels</h1>
+      <h1>Labels</h1>
       <LabelsDataGrid rows_data={data} />
     </div>
   )

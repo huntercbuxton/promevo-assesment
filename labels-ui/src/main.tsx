@@ -10,16 +10,11 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import ReactDOM from "react-dom/client";
 
-import LabelsListPage from './labelslist';
-import UpdatePage from './label';
+import LabelsListPage from './labelslist'; 
 import LabelDetailPage from './labeldetail.tsx';
 import CreatePage from './create'
 import DeletePage from './delete'
-
-// temp
-import { MockLabelsDataGrid } from './labelsgrid.tsx'
-const LandingPage = () => <h1>Landing Page Placeholder</h1>
-
+  
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       { 
         index: true, 
-        Component: LandingPage 
+        Component: LabelsListPage 
       },
       {
         path: "list", 
@@ -38,11 +33,11 @@ const router = createBrowserRouter([
         Component: LabelDetailPage
         // TODO: add 404 page for invalid label id's
       },
-      {
-        path: "update/:id",
-        Component: UpdatePage
-        // TODO: add 404 page for invalid label id's
-      },
+      // {
+      //   path: "update/:id",
+      //   Component: UpdatePage
+      //   // TODO: add 404 page for invalid label id's
+      // },
       {
         path: "create",
         Component: CreatePage
@@ -50,12 +45,7 @@ const router = createBrowserRouter([
       {
         path: "delete",
         Component: DeletePage
-      },
-      // TODO: remove this route before merging to main
-      {
-        path: "datagrid",
-        Component: MockLabelsDataGrid
-      }
+      } 
     ]
   },
 ]);

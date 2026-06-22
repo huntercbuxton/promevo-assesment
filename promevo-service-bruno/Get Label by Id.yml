@@ -11,7 +11,7 @@ http:
 runtime:
   variables:
     - name: id
-      value: Label_18
+      value: Label_6
 
 settings:
   encodeUrl: true
