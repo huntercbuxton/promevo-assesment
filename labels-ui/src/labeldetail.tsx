@@ -8,7 +8,7 @@ import LabelBtn from "./template";
 import Button from '@mui/material/Button'; 
 import Container from '@mui/material/Container';
 import LabelDataTable from './label_data_table';
-
+import UpdateLabelForm from './label_data_editor';
 const queryClient = new QueryClient()
 
 
@@ -26,6 +26,9 @@ export function LabelDetailView({ id, name, color, type, messageListVisibility, 
 
     const handleDeleteBtnClick = () => { }
 
+    const onSave = () => setShowEditor(false);
+    
+
     return (
         <>
             <header id='label-detail-header'>
@@ -37,8 +40,11 @@ export function LabelDetailView({ id, name, color, type, messageListVisibility, 
                 {color ? <LabelBtn id={id} name={name} color={color} />
                     : <LabelBtn id={id} name={name} />}
             </Container>
+            <br/>
            <Container>
-                {showEditor ? <h1>LabelEditor</h1>  
+                {showEditor ? <UpdateLabelForm 
+                        labelData={{ id, name, color, type, messageListVisibility, labelListVisibility }}
+                        onSave={onSave} />
                     : <LabelDataTable 
                         id={id} 
                         name={name} 
