@@ -3,29 +3,88 @@ import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import { type LabelData } from "./labeldata";
 import Box from '@mui/material/Box';
-import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { useQuery, QueryClient, QueryClientProvider, useQueryClient, useMutation } from '@tanstack/react-query';
 import LabelBtn from "./template";
 import Button from '@mui/material/Button'; 
 import Container from '@mui/material/Container';
 import LabelDataTable from './label_data_table';
 import UpdateLabelForm from './label_data_editor';
+import './labeldetail.css'
+
+import { delete_label_command } from './api_util.ts'
+
 const queryClient = new QueryClient()
 
+interface DeleteBtnFormData {
+    id: string;
+}
+
+interface DeleteLabelBtnProps extends DeleteBtnFormData {
+    // onDelete: ()=>void;
+    onDeleteErr: (err: string)=>void;
+}
+
+export function DeleteLabelBtn({id,  onDeleteErr }: DeleteLabelBtnProps) { //{ labelId }: { labelId: string }
+
+    const navigate = useNavigate();
+    const navigateToListPage = () => navigate(`/list`);
+
+    const queryClient = useQueryClient();
+ 
+
+    // 2. Initialize React Hook Form with reactive "values"
+    const {
+        handleSubmit,
+        formState: { errors } } = useForm<DeleteBtnFormData>({
+            // 'values' replaces 'defaultValues' for data streams like useQuery 
+            values: { id: id },
+        });
+
+    const { mutate, isPending } = useMutation({
+        mutationFn: () => delete_label_command(id),
+        onSuccess: () => {
+            // Invalidate the cache to trigger a fresh background refresh 
+            queryClient.invalidateQueries({ queryKey: ['labelListData'] });
+            navigateToListPage();
+        },
+        onError: (error, variables, context) => {
+            console.error(`Delete mutation failed for ${id}:`, error.message);
+            onDeleteErr(`Error while saving changes: ${error}`)
+        }
+    });
+ 
+    return (
+        <>
+            <form  onSubmit={handleSubmit((values) => mutate(values))}>
+                {/* TODO: disable submit button if there are any errors in the form input */}
+                <Button
+                    type="submit"
+                    disabled={isPending || !id}>
+                    {isPending ? 'Deleting...' : 'Delete'}
+                </Button>
+            </form>
+        </>
+    );
+}
 
 export function LabelDetailView({ id, name, color, type, messageListVisibility, labelListVisibility }: LabelData) {
 
     const navigate = useNavigate();
+    const navigateToListPage = () => navigate(`/list`);
 
     const [showEditor, setShowEditor] = useState(false);
 
-    const navigateToListPage = () => navigate(`/list`);
 
     const handleEditBtnClick = () => {
         if (!showEditor) setShowEditor(true);
     }
 
-    const handleDeleteBtnClick = () => { }
+    const handleDeleteBtnClick = () => { 
+  
+    }
 
+    
     const onSave = () => setShowEditor(false);
     
 
@@ -34,7 +93,7 @@ export function LabelDetailView({ id, name, color, type, messageListVisibility, 
             <header id='label-detail-header'>
                 <Button onClick={navigateToListPage}>Back</Button>
                 <Button onClick={handleEditBtnClick} disabled={showEditor}>Edit</Button>
-                {type === 'user' && <Button onClick={handleDeleteBtnClick}>Delete</Button> }
+                {type === 'user' && <DeleteLabelBtn id={id} onDeleteErr={handleDeleteBtnClick}/>  }
             </header>
             <Container>
                 {color ? <LabelBtn id={id} name={name} color={color} />

@@ -12,7 +12,6 @@ import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import { styled } from '@mui/material/styles';
 
-
 const queryClient = new QueryClient()
 
 // Types for form values
