@@ -1,0 +1,20 @@
+info:
+  name: Delete a Gmail Label
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: "{{host}}/{{id}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id
+      value: Label_4801416451290546973
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

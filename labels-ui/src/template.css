@@ -1,0 +1,12 @@
+
+
+button.label-btn {
+    border-width: 0.15em !important;
+    min-width: 250px;
+    /* text-align: left !important; */
+    /*  display: block !important; */
+}
+ 
+#labels-datagrid-box .label-btn {
+    width: 100%;
+}

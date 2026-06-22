@@ -1,0 +1,28 @@
+info:
+  name: Update a Gmail Label
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{host}}/update"
+  body:
+    type: json
+    data: |-
+      {
+        "color": {
+            "backgroundColor": "#8e63ce",
+            "textColor": "#000000"
+        },
+        "id": "Label_20",
+        "labelListVisibility": "labelShow",
+        "messageListVisibility": "show",
+        "name": "label_20_update"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

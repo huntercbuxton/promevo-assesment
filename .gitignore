@@ -1,0 +1,12 @@
+
+
+## VSCode
+*.log 
+*.code-workspace  
+
+## MAC 
+.DS_Store
+
+## Misc
+scratch/**
+devnotes.md

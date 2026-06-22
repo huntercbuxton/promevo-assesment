@@ -1,0 +1,27 @@
+info:
+  name: Create a new Gmail Label
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{host}}/create"
+  body:
+    type: json
+    data: |-
+      { 
+        "name": "label_20",
+        "messageListVisibility": "show",
+        "labelListVisibility": "labelShow",
+        "color": {
+          "textColor": "#000000",
+          "backgroundColor": "#ffffff"
+        }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
