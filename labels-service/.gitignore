@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### gmail api/auth
+tokens/
+**/gmail_credentials.json
+
+## other
+.env
