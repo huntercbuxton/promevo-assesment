@@ -11,13 +11,13 @@ http:
     data: |-
       {
         "color": {
-          "backgroundColor": "#ffffff",
-          "textColor": "#000000"
+            "backgroundColor": "#8e63ce",
+            "textColor": "#000000"
         },
-        "id": "Label_18",
-        "labelListVisibility": "labelHide",
-        "messageListVisibility": "hide",
-        "name": "label_test_18"
+        "id": "Label_20",
+        "labelListVisibility": "labelShow",
+        "messageListVisibility": "show",
+        "name": "label_20_update"
       }
   auth: inherit
 
